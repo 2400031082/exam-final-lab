@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Apply for Scholarship - ScholarAid</title>
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    window.onload = function () {
+      const params = new URLSearchParams(window.location.search);
+      const scholarshipId = params.get("scholarshipId");
+      const scholarshipName = {
+        1: "CS Excellence Scholarship",
+        2: "Tech Innovators Grant",
+        3: "Healthcare Heroes Scholarship",
+        4: "Future Leaders Grant"
+      }[scholarshipId] || "Unknown Scholarship";
+
+      document.getElementById("scholarshipTitle").textContent = scholarshipName;
+
+      document.getElementById("applicationForm").onsubmit = function (e) {
+        e.preventDefault();
+        alert("Application submitted successfully!");
+        window.location.href = "courses.html";
+      };
+    };
+  </script>
+</head>
+<body>
+  <header>
+    <h1>ScholarAid</h1>
+  </header>
+  <main>
+    <h2>Apply for <span id="scholarshipTitle"></span></h2>
+    <form id="applicationForm">
+      <label>
+        Full Name:
+        <input type="text" name="fullname" required />
+      </label><br/><br/>
+      <label>
+        Email:
+        <input type="email" name="email" required />
+      </label><br/><br/>
+      <label>
+        University:
+        <input type="text" name="university" required />
+      </label><br/><br/>
+      <label>
+        GPA:
+        <input type="number" step="0.01" min="0" max="4" name="gpa" required />
+      </label><br/><br/>
+      <button type="submit">Submit Application</button>
+    </form>
+    <a href="scholarships.html"><button>Back to Scholarships</button></a>
+  </main>
+</body>
+</html>

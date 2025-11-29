@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scholarships - ScholarAid</title>
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    // Sample scholarship data
+    const scholarships = {
+      "Computer Science": [
+        {
+          id: 1,
+          name: "CS Excellence Scholarship",
+          deadline: "2025-12-31",
+          description: "Scholarship for top computer science students."
+        },
+        {
+          id: 2,
+          name: "Tech Innovators Grant",
+          deadline: "2025-11-15",
+          description: "Support for tech project innovators."
+        }
+      ],
+      "Nursing & Healthcare": [
+        {
+          id: 3,
+          name: "Healthcare Heroes Scholarship",
+          deadline: "2025-10-30",
+          description: "For nursing and healthcare students."
+        }
+      ],
+      "Business Administration": [
+        {
+          id: 4,
+          name: "Future Leaders Grant",
+          deadline: "2025-09-25",
+          description: "For students excelling in business studies."
+        }
+      ]
+    };
+
+    // On page load
+    window.onload = function () {
+      const params = new URLSearchParams(window.location.search);
+      const course = params.get("course");
+
+      document.getElementById("courseName").textContent = course || "All Courses";
+
+      const listContainer = document.getElementById("scholarshipList");
+      listContainer.innerHTML = "";
+
+      if (course && scholarships[course]) {
+        scholarships[course].forEach(s => {
+          const div = document.createElement("div");
+          div.classList.add("scholarship-card");
+          div.innerHTML = `
+            <h3>${s.name}</h3>
+            <p>${s.description}</p>
+            <p><strong>Deadline:</strong> ${s.deadline}</p>
+            <a href="apply.html?scholarshipId=${s.id}"><button>Apply Now</button></a>
+          `;
+          listContainer.appendChild(div);
+        });
+      } else {
+        listContainer.innerHTML = "<p>No scholarships found for this course.</p>";
+      }
+    };
+  </script>
+</head>
+<body>
+  <header>
+    <h1>ScholarAid</h1>
+  </header>
+  <main>
+    <h2>Scholarships for <span id="courseName"></span></h2>
+    <div id="scholarshipList"></div>
+    <a href="courses.html"><button>Back to Courses</button></a>
+  </main>
+</body>
+</html>

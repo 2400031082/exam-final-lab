@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Panel - ScholarAid</title>
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    // This is a placeholder for a real backend
+    let scholarships = [
+      { id: 1, name: "CS Excellence Scholarship", course: "Computer Science", deadline: "2025-12-31" },
+      { id: 2, name: "Tech Innovators Grant", course: "Computer Science", deadline: "2025-11-15" },
+      { id: 3, name: "Healthcare Heroes Scholarship", course: "Nursing & Healthcare", deadline: "2025-10-30" },
+      { id: 4, name: "Future Leaders Grant", course: "Business Administration", deadline: "2025-09-25" }
+    ];
+
+    function renderList() {
+      const list = document.getElementById("scholarshipList");
+      list.innerHTML = "";
+      scholarships.forEach(s => {
+        const li = document.createElement("li");
+        li.textContent = `${s.name} (${s.course}) - Deadline: ${s.deadline}`;
+        list.appendChild(li);
+      });
+    }
+
+    function addScholarship() {
+      const name = document.getElementById("name").value;
+      const course = document.getElementById("course").value;
+      const deadline = document.getElementById("deadline").value;
+      if (!name || !course || !deadline) {
+        alert("Please fill all fields");
+        return;
+      }
+      scholarships.push({
+        id: scholarships.length + 1,
+        name,
+        course,
+        deadline
+      });
+      renderList();
+      document.getElementById("adminForm").reset();
+    }
+
+    window.onload = function () {
+      renderList();
+      document.getElementById("adminForm").onsubmit = function (e) {
+        e.preventDefault();
+        addScholarship();
+      };
+    };
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Admin Panel - ScholarAid</h1>
+  </header>
+  <main>
+    <h2>Manage Scholarships</h2>
+    <ul id="scholarshipList"></ul>
+
+    <h3>Add New Scholarship</h3>
+    <form id="adminForm">
+      <label>
+        Scholarship Name:<br />
+        <input type="text" id="name" required />
+      </label><br /><br />
+      <label>
+        Course:<br />
+        <input type="text" id="course" required />
+      </label><br /><br />
+      <label>
+        Deadline:<br />
+        <input type="date" id="deadline" required />
+      </label><br /><br />
+      <button type="submit">Add Scholarship</button>
+    </form>
+  </main>
+</body>
+</html>
